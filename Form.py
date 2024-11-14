@@ -41,8 +41,10 @@ tipoCamionLabel.grid(row=1, column=0, sticky="w", pady=2, padx=2)
 # Frame para los Radiobuttons
 selectorFrame = Frame(miFrame)
 selectorFrame.grid(row=1, column=1, columnspan=2, pady=2, padx=2)
-Radiobutton(selectorFrame, text="Kg", variable=tipo_peso, value=1).grid(row=1, column=1, padx=5)
-Radiobutton(selectorFrame, text="Ton", variable=tipo_peso, value=2).grid(row=1, column=2, padx=5)
+Radiobutton_kg = Radiobutton(selectorFrame, text="Kg", variable=tipo_peso, value=1)
+Radiobutton_kg.grid(row=1, column=1, padx=5)
+Radiobutton_Ton = Radiobutton(selectorFrame, text="Ton", variable=tipo_peso, value=2)
+Radiobutton_Ton.grid(row=1, column=2, padx=5)
 
 # Botón de inicio
 botonesFrame = Frame(miFrame)
@@ -73,8 +75,12 @@ def iniciar_proceso():
                 camion_vacio,
                 camion_lleno,
                 cuadroCantidad,
+                cuadroCamionVacio,
+                cuadroCamionLleno,
                 peso_seleccionado,
                 botonIniciarDescarga,
+                Radiobutton_kg,
+                Radiobutton_Ton
             )
             control_descarga.iniciar_descarga()
     except ValueError:

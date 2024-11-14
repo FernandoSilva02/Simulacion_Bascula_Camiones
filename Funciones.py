@@ -82,11 +82,15 @@ class CalculoCafe:
 class ControlDescarga:
     # Clase que controla la descarga de los camiones
     def __init__(
-        self, cantidad_camiones, camion_vacio, camion_lleno, cuadroCantidad, tipo_peso, boton
+        self, cantidad_camiones, camion_vacio, camion_lleno, cuadroCantidad, cuadroCamionVacio, cuadroCamionLleno, tipo_peso, boton, radiobutton_kg, radiobutton_ton
     ):
         # Función que inicializa los valores de la clase
         self.cuadroCantidad = cuadroCantidad
+        self.cuadroCamionVacio = cuadroCamionVacio
+        self.cuadroCamionLleno = cuadroCamionLleno
         self.boton = boton
+        self.radiobutton_kg = radiobutton_kg
+        self.radiobutton_ton = radiobutton_ton
         self.calculo = CalculoCafe(cantidad_camiones, camion_vacio, camion_lleno, tipo_peso)
 
     def iniciar_descarga(self):
@@ -94,6 +98,8 @@ class ControlDescarga:
 
         # Deshabilitar el campo de cantidad de camiones en la interfaz
         self.cuadroCantidad.config(state="disabled")
+        self.radiobutton_kg.config(state="disabled")
+        self.radiobutton_ton.config(state="disabled")
 
         # Cambiar el botón a "Continuar Descarga"
         self.boton.config(text="Continuar Descarga", command=self.continuar_descarga)
@@ -106,6 +112,25 @@ class ControlDescarga:
         if self.calculo.camiones_procesados >= self.calculo.cantidad:
             self.boton.config(text="Ver Resumen", command=self.ver_resumen)
             self.calculo.registrar_totales()
+            return
+
+        # Solicitar nuevos valores de camion_vacio y camion_lleno
+        try:
+            camion_vacio = int(self.cuadroCamionVacio.get())
+            camion_lleno = int(self.cuadroCamionLleno.get())
+            if camion_lleno <= camion_vacio:
+                messagebox.showerror(
+                    "Error",
+                    "El peso del camión lleno debe ser mayor al peso del camión vacío.",
+                )
+                return
+            else:
+                self.calculo.camion_vacio = camion_vacio
+                self.calculo.camion_lleno = camion_lleno
+        except ValueError:
+            messagebox.showerror(
+                "Error", "Ingrese solo valores numéricos en todos los campos."
+            )
             return
 
         # Temporizador de 1 segundos en un hilo separado para evitar congelamiento de la interfaz
