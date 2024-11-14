@@ -2,45 +2,64 @@ from tkinter import *
 from Funciones import *
 
 root = Tk()
-root.geometry("300x120")
+root.geometry("300x150")
 root.title("Descarga de camiones")
 
 validacion = root.register(solo_numeros)
 
+# Variable para los Radiobuttons
+tipo_peso = IntVar()
+
 miFrame = Frame(root)
 miFrame.pack()
+
 
 # Entradas de texto
 cuadroCantidad = Entry(miFrame, validate="key", validatecommand=(validacion, "%S"))
 cuadroCantidad.grid(row=0, column=1, pady=2, padx=2)
 
 cuadroCamionVacio = Entry(miFrame, validate="key", validatecommand=(validacion, "%S"))
-cuadroCamionVacio.grid(row=1, column=1, pady=2, padx=2)
+cuadroCamionVacio.grid(row=2, column=1, pady=2, padx=2)
 
 cuadroCamionLleno = Entry(miFrame, validate="key", validatecommand=(validacion, "%S"))
-cuadroCamionLleno.grid(row=2, column=1, pady=2, padx=2)
+cuadroCamionLleno.grid(row=3, column=1, pady=2, padx=2)
 
 # Etiquetas de texto
 cantidadLabel = Label(miFrame, text="Cantidad de camiones: ")
 cantidadLabel.grid(row=0, column=0, sticky="w", pady=2, padx=2)
 
-camionVacioLabel = Label(miFrame, text="Peso del camión vacío (Kg): ")
-camionVacioLabel.grid(row=1, column=0, sticky="w", pady=2, padx=2)
+camionVacioLabel = Label(miFrame, text="Peso del camión vacío: ")
+camionVacioLabel.grid(row=2, column=0, sticky="w", pady=2, padx=2)
 
-camionLlenoLabel = Label(miFrame, text="Peso del camión lleno (Kg): ")
-camionLlenoLabel.grid(row=2, column=0, sticky="w", pady=2, padx=2)
+camionLlenoLabel = Label(miFrame, text="Peso del camión lleno: ")
+camionLlenoLabel.grid(row=3, column=0, sticky="w", pady=2, padx=2)
+
+# Etiqueta y Radiobuttons en la misma fila
+tipoCamionLabel = Label(miFrame, text="Medida de peso: ")
+tipoCamionLabel.grid(row=1, column=0, sticky="w", pady=2, padx=2)
+
+# Frame para los Radiobuttons
+selectorFrame = Frame(miFrame)
+selectorFrame.grid(row=1, column=1, columnspan=2, pady=2, padx=2)
+Radiobutton(selectorFrame, text="Kg", variable=tipo_peso, value=1).grid(row=1, column=1, padx=5)
+Radiobutton(selectorFrame, text="Ton", variable=tipo_peso, value=2).grid(row=1, column=2, padx=5)
 
 # Botón de inicio
 botonesFrame = Frame(miFrame)
-botonesFrame.grid(row=6, column=0, columnspan=2, pady=10)
+botonesFrame.grid(row=4, column=0, columnspan=2, pady=10)
 
 
 def iniciar_proceso():
     # Función que inicia el proceso de descarga de los camiones
     try:
+        if not cuadroCantidad.get() or not cuadroCamionVacio.get() or not cuadroCamionLleno.get() or not tipo_peso.get():
+            messagebox.showerror("Error", "Ingrese todos los campos.")
+            return
+        
         cantidad = int(cuadroCantidad.get())
         camion_vacio = int(cuadroCamionVacio.get())
         camion_lleno = int(cuadroCamionLleno.get())
+        peso_seleccionado = tipo_peso.get()
 
         if camion_lleno <= camion_vacio:
             messagebox.showerror(
@@ -54,6 +73,7 @@ def iniciar_proceso():
                 camion_vacio,
                 camion_lleno,
                 cuadroCantidad,
+                peso_seleccionado,
                 botonIniciarDescarga,
             )
             control_descarga.iniciar_descarga()

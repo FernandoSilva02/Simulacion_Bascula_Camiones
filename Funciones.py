@@ -6,11 +6,12 @@ import time
 
 class CalculoCafe:
 
-    def __init__(self, cantidad_camiones, camion_vacio, camion_lleno):
+    def __init__(self, cantidad_camiones, camion_vacio, camion_lleno, tipo_peso):
         # Función que inicializa los valores de la clase
         self.cantidad = cantidad_camiones
         self.camion_vacio = camion_vacio
         self.camion_lleno = camion_lleno
+        self.tipo_peso = tipo_peso
         self.contenedores_defectuosos_usados = 1
         self.contenedores_especiales_usados = 1
         self.sacos_defectuosos = 0
@@ -21,7 +22,13 @@ class CalculoCafe:
 
     def calcular_carga_cafe(self):
         # Calcula la carga de café en el camión
-        return self.camion_lleno - self.camion_vacio
+        if self.tipo_peso == 1:
+            carga_cafe = self.camion_lleno - self.camion_vacio
+            print(f"Carga de café en kilo calculada: {carga_cafe}")
+        else:
+            carga_cafe = (self.camion_lleno - self.camion_vacio) * 1000
+            print(f"Carga de café en ton calculada: {carga_cafe}")
+        return carga_cafe
 
     def calcular_cantidad_sacos(self, carga_cafe):
         # Calcula la cantidad de sacos de café en el camión
@@ -75,12 +82,12 @@ class CalculoCafe:
 class ControlDescarga:
     # Clase que controla la descarga de los camiones
     def __init__(
-        self, cantidad_camiones, camion_vacio, camion_lleno, cuadroCantidad, boton
+        self, cantidad_camiones, camion_vacio, camion_lleno, cuadroCantidad, tipo_peso, boton
     ):
         # Función que inicializa los valores de la clase
         self.cuadroCantidad = cuadroCantidad
         self.boton = boton
-        self.calculo = CalculoCafe(cantidad_camiones, camion_vacio, camion_lleno)
+        self.calculo = CalculoCafe(cantidad_camiones, camion_vacio, camion_lleno, tipo_peso)
 
     def iniciar_descarga(self):
         # Función que inicia la descarga de los camiones
