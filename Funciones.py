@@ -40,22 +40,16 @@ class CalculoCafe:
 
             if self.sacos_en_contenedor_especial >= 1000:
                 self.contenedores_especiales_usados += 1
-                messagebox.showinfo("Alerta", "Contenedor de sacos especiales lleno")
+                messagebox.showinfo("Alerta", "Contenedor de sacos especiales lleno. Cambia el contenedor")
                 self.sacos_en_contenedor_especial = 0
 
             if self.sacos_en_contenedor_defectuoso >= 1000:
                 self.contenedores_defectuosos_usados += 1
-                messagebox.showinfo("Alerta", "Contenedor de sacos defectuosos lleno")
+                messagebox.showinfo("Alerta", "Contenedor de sacos defectuosos lleno. Cambia el contenedor")
                 self.sacos_en_contenedor_defectuoso = 0
 
     def procesar_camion(self):
         # Procesa el camión y calcula la cantidad de sacos de café
-        if self.camiones_procesados >= self.cantidad:
-            messagebox.showinfo(
-                "Proceso terminado", "Todos los camiones han sido procesados."
-            )
-            return
-
         carga_cafe = self.calcular_carga_cafe()
         sacos_totales = self.calcular_cantidad_sacos(carga_cafe)
         self.clasificar_sacos(sacos_totales)
