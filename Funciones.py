@@ -47,12 +47,18 @@ class CalculoCafe:
 
             if self.sacos_en_contenedor_especial >= 1000:
                 self.contenedores_especiales_usados += 1
-                messagebox.showinfo("Alerta", "Contenedor de sacos especiales lleno. Cambia el contenedor")
+                messagebox.showinfo(
+                    "Alerta",
+                    "Contenedor de sacos especiales lleno. Cambia el contenedor",
+                )
                 self.sacos_en_contenedor_especial = 0
 
             if self.sacos_en_contenedor_defectuoso >= 1000:
                 self.contenedores_defectuosos_usados += 1
-                messagebox.showinfo("Alerta", "Contenedor de sacos defectuosos lleno. Cambia el contenedor")
+                messagebox.showinfo(
+                    "Alerta",
+                    "Contenedor de sacos defectuosos lleno. Cambia el contenedor",
+                )
                 self.sacos_en_contenedor_defectuoso = 0
 
     def procesar_camion(self):
@@ -82,7 +88,17 @@ class CalculoCafe:
 class ControlDescarga:
     # Clase que controla la descarga de los camiones
     def __init__(
-        self, cantidad_camiones, camion_vacio, camion_lleno, cuadroCantidad, cuadroCamionVacio, cuadroCamionLleno, tipo_peso, boton, radiobutton_kg, radiobutton_ton
+        self,
+        cantidad_camiones,
+        camion_vacio,
+        camion_lleno,
+        cuadroCantidad,
+        cuadroCamionVacio,
+        cuadroCamionLleno,
+        tipo_peso,
+        boton,
+        radiobutton_kg,
+        radiobutton_ton,
     ):
         # Función que inicializa los valores de la clase
         self.cuadroCantidad = cuadroCantidad
@@ -91,7 +107,9 @@ class ControlDescarga:
         self.boton = boton
         self.radiobutton_kg = radiobutton_kg
         self.radiobutton_ton = radiobutton_ton
-        self.calculo = CalculoCafe(cantidad_camiones, camion_vacio, camion_lleno, tipo_peso)
+        self.calculo = CalculoCafe(
+            cantidad_camiones, camion_vacio, camion_lleno, tipo_peso
+        )
 
     def iniciar_descarga(self):
         # Función que inicia la descarga de los camiones

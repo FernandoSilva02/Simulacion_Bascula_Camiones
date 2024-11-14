@@ -54,10 +54,15 @@ botonesFrame.grid(row=4, column=0, columnspan=2, pady=10)
 def iniciar_proceso():
     # Función que inicia el proceso de descarga de los camiones
     try:
-        if not cuadroCantidad.get() or not cuadroCamionVacio.get() or not cuadroCamionLleno.get() or not tipo_peso.get():
+        if (
+            not cuadroCantidad.get()
+            or not cuadroCamionVacio.get()
+            or not cuadroCamionLleno.get()
+            or not tipo_peso.get()
+        ):
             messagebox.showerror("Error", "Ingrese todos los campos.")
             return
-        
+
         cantidad = int(cuadroCantidad.get())
         camion_vacio = int(cuadroCamionVacio.get())
         camion_lleno = int(cuadroCamionLleno.get())
@@ -80,7 +85,7 @@ def iniciar_proceso():
                 peso_seleccionado,
                 botonIniciarDescarga,
                 Radiobutton_kg,
-                Radiobutton_Ton
+                Radiobutton_Ton,
             )
             control_descarga.iniciar_descarga()
     except ValueError:
